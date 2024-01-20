@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import "reflect-metadata"
+import { User } from 'src/auth/user.entity';
 import { FoodItem } from 'src/food-item/food_item.entity';
 import { DataSource } from 'typeorm';
 
@@ -12,7 +13,7 @@ const typeOrmConfig = new DataSource({
   database: process.env.DB_NAME,
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
-  entities:  [FoodItem] ,//[__dirname + '/src/**/*.entity{.ts,.js}'],
+  entities:  [__dirname + '/src/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   migrationsRun: false,
   synchronize: true,
