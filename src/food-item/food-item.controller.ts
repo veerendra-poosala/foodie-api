@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, NotFoundException, UseGuards } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
 import { CreateFoodItemDto } from './dtos/foodItemDto';
 import { FoodItem } from './food_item.entity';
 import { FoodItemService } from './services/food_item.services/food_item.services';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('food-item')
+@UseGuards(AuthGuard())
 export class FoodItemController {
   constructor(private readonly foodItemService: FoodItemService) {}
 

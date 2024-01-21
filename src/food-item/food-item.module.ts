@@ -5,9 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FoodItem } from './food_item.entity';
 // import { FoodItemRepository } from './repositories/food_item.repository';
 import { HttpModule } from '@nestjs/axios';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-    // imports: [TypeOrmModule.forFeature([FoodItem,FoodItemRepository]),HttpModule],
+    imports: [
+        AuthModule
+    ],
     controllers: [FoodItemController],
     providers: [
         FoodItemService,
