@@ -5,6 +5,10 @@ import { FoodItemModule } from './food-item/food-item.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { RestaurantModule } from './restaurant/restaurant.module';
+import typeOrmConfig, { ormCredintials } from 'ormconfig';
+import { DataSource } from 'typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -15,8 +19,13 @@ import { JwtModule } from '@nestjs/jwt';
                 expiresIn: 3600, //time to expire
               }
             }),
+            TypeOrmModule.forRoot({
+              ...ormCredintials,
+              autoLoadEntities: true, 
+              synchronize: true,
+            }),
             FoodItemModule, 
-            AuthModule,
+            AuthModule, RestaurantModule,
 
           ],
   controllers: [AppController],
