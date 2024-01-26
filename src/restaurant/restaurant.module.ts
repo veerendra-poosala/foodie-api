@@ -10,7 +10,7 @@ import { ormCredintials } from 'ormconfig';
     TypeOrmModule.forRoot({
       ...ormCredintials,
       autoLoadEntities: true, 
-      synchronize: true,
+      synchronize: false,
     }),
 
   ],

@@ -1,19 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-// import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
 import { CreateFoodItemDto } from 'src/food-item/dtos/foodItemDto';
 import { FoodItem } from 'src/food-item/food_item.entity';
-// import { FoodItemRepository } from 'src/food-item/repositories/food_item.repository';
-// import { Repository } from 'typeorm';
 import typeOrmConfig from 'ormconfig';
+import { FoodItemRepository } from 'src/food-item/repositories/food_item.repository';
 
 @Injectable()
 export class FoodItemService {
-  // constructor(
-  //   @InjectRepository(FoodItemRepository)
-  //   private foodItemRepo = typeOrmConfig.getRepository(FoodItem)
-  //   ) {}
+  constructor(
+    private foodItemRepo: FoodItemRepository
+    ) {}
 
-  private foodItemRepo = typeOrmConfig.getRepository(FoodItem)
   async createFoodItem(createFoodItemDto: CreateFoodItemDto): Promise<FoodItem> {
     const { name, price, availability } = createFoodItemDto;
     const foodItem = await this.foodItemRepo.create({
@@ -35,9 +31,7 @@ export class FoodItemService {
   }
 
   async getFoodItmeByID(food_item_id: number): Promise<FoodItem> {
-    const itemInfo = await this.foodItemRepo.findOne({
-      where: { food_item_id },
-    });
+    const itemInfo = await this.foodItemRepo.getById(food_item_id);
     if (!itemInfo) {
       throw new NotFoundException();
     }
