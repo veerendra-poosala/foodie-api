@@ -16,7 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             JwtModule.register({
               secret : 'secret',
               signOptions: {
-                expiresIn: 3600, //time to expire
+                expiresIn: 86400, //time to expire
               }
             }),
             TypeOrmModule.forRoot({
