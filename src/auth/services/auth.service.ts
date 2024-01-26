@@ -1,22 +1,20 @@
 import { ConflictException, Injectable, NotFoundException, Logger, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredintialsDto } from '../dtos/auth-crendintials.dto';
 import { User } from '../user.entity';
-import typeOrmConfig from 'ormconfig';
 import { QueryFailedError } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserCredintialsDto } from '../dtos/user-credintials.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '../interfaces/jwt.interface';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class AuthService {
-
   constructor(
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private userRepository: UserRepository
   ){}
 
-  private userRepository = typeOrmConfig.getRepository(User);
   private readonly logger = new Logger(AuthService.name);
 
   async signUp(userCrendentialsDto: UserCredintialsDto): Promise<User> {
